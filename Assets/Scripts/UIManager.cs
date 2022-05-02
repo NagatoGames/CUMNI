@@ -48,6 +48,7 @@ public class UIManager : MonoBehaviour
         currentPanel.SetActive(false);
         currentPanel = menuPanel;
         currentPanel.SetActive(true);
+        gameManager.AudioManager.AudioButtonClick();
     }
 
     public void OpenOptions()
@@ -55,6 +56,7 @@ public class UIManager : MonoBehaviour
         currentPanel.SetActive(false);
         currentPanel = optionsPanel;
         currentPanel.SetActive(true);
+        gameManager.AudioManager.AudioButtonClick();
     }
 
     public void OpenLevels()
@@ -62,6 +64,7 @@ public class UIManager : MonoBehaviour
         currentPanel.SetActive(false);
         currentPanel = levelsPanel;
         currentPanel.SetActive(true);
+        gameManager.AudioManager.AudioButtonClick();
     }
 
     public void OpenShop()
@@ -69,6 +72,7 @@ public class UIManager : MonoBehaviour
         currentPanel.SetActive(false);
         currentPanel = shopPanel;
         currentPanel.SetActive(true);
+        gameManager.AudioManager.AudioButtonClick();
     }
 
     public void OpenRuls()
@@ -76,6 +80,7 @@ public class UIManager : MonoBehaviour
         currentPanel.SetActive(false);
         currentPanel = rulsPanel;
         currentPanel.SetActive(true);
+        gameManager.AudioManager.AudioButtonClick();
     }
 
     public void OutPutBalance(int Coins, int Diamonds)
@@ -100,6 +105,7 @@ public class UIManager : MonoBehaviour
         currentBotName.text = botNames[levelIndex];
 
         gamePanel.GetComponent<GameLogic>().StartGame();
+        gameManager.AudioManager.AudioButtonClick();
     }
 
     public void ShowBonusValue(string description, string score)

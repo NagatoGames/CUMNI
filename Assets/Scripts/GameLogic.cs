@@ -70,11 +70,13 @@ public class GameLogic : MonoBehaviour
         {
             info = "Раунд окончен в вашу пользу!";
             totalScorePlayer++;
+            gameManager.AudioManager.AudioWin();
         }
         else
         {
             info = "Раунд проигран!";
             totalScoreBot++;
+            gameManager.AudioManager.AudioLose();
         }
         totalScoreView.text = $"{totalScorePlayer}/{totalScoreBot}";
 
@@ -107,6 +109,7 @@ public class GameLogic : MonoBehaviour
             gameManager.getPlayerData().Coins += 10;
             gameManager.getPlayerData().SaveData();
         }
+        gameManager.getPlayerData().LoadData();
         infoTxt.text = info;
         infoPanel.GetComponent<Animation>().Play();
     }
@@ -242,5 +245,6 @@ public class GameLogic : MonoBehaviour
         Combination combination = dcm.rollDices(dicesTable);
         bonusValue.GetComponent<Text>().text = combination.ToString();
         bonusValue.GetComponent<Animation>().Play();
+        gameManager.AudioManager.AudioRollDice();
     }
 }

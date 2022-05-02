@@ -38,6 +38,7 @@ public class ShopManager : MonoBehaviour
                 gameManager.getPlayerData().ShopDices[index] = 1;
                 gameManager.getPlayerData().SaveData();
                 gameManager.getPlayerData().SaveShopData(index);
+                gameManager.AudioManager.AudioTakeBonus();
             }
             else
             {

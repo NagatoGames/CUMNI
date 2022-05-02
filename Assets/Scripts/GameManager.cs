@@ -5,18 +5,20 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     private PlayerData PlayerData = new PlayerData();
-    //todo add GET and make useble for classes
     [SerializeField] private UIManager _UIManager;
+    [SerializeField] private AudioManager _AudioManager;
 
-    [Header("Buttons")]
+    [Header("UI items for bonus")]
     [SerializeField] private Button presentButton;
     [SerializeField] private Text coinText;
+    [SerializeField] private ParticleSystem coinEffect;
 
     private int currentDiceStyle = 0;
 
     public int CurrentDiceStyle { get => currentDiceStyle; set => currentDiceStyle = value; }
     public UIManager UIManager { get => _UIManager; set => _UIManager = value; }
     public Text CoinText { get => coinText; set => coinText = value; }
+    public AudioManager AudioManager { get => _AudioManager; set => _AudioManager = value; }
 
     private void Awake()
     {
@@ -43,6 +45,7 @@ public class GameManager : MonoBehaviour
     }
     public void OpenLevels()
     {
+        PlayerData.LoadData();
         UIManager.OpenLevels();
     }
     public void OpenShop()
@@ -65,27 +68,23 @@ public class GameManager : MonoBehaviour
     {
         PlayerData.Coins += 25;
         PlayerData.LastVisitDate = DateTime.Today;
-        presentButton.enabled = false;
         presentButton.interactable = false;
         PlayerData.SaveDate();
         PlayerData.SaveData();
         UIManager.OutPutBalance(PlayerData.Coins, PlayerData.Diamonds);
+        coinEffect.Play();
+        AudioManager.AudioTakeBonus();
     }
     private void CheckPresent()
     {
-        //Debug.Log("last = " + PlayerData.LoadDate());
-        //Debug.Log("now = " + DateTime.Today);
-
-        if (DateTime.Compare(PlayerData.LoadDate(), DateTime.Today) > 0)
+        if (DateTime.Compare(PlayerData.LoadDate(), DateTime.Today) < 0)
         {
             //Debug.Log("is later than");
-            presentButton.enabled = true;
             presentButton.interactable = true;
         }
         else
         {
             //Debug.Log("is earlier than");
-            presentButton.enabled = false;
             presentButton.interactable = false;
         }
     }
@@ -111,18 +110,15 @@ public class GameManager : MonoBehaviour
         }
         return activeDices;
     }
-
     public PlayerData getPlayerData()
     {
         return PlayerData;
     }
-
     public void UpdateCoin()
     {
         UpdateData();
         UIManager.OutPutBalance(PlayerData.Coins, PlayerData.Diamonds);
     }
-
     public void UpdateData()
     {
         PlayerData.LoadData();
