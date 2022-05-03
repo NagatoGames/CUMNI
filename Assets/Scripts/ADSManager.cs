@@ -1,9 +1,12 @@
 using UnityEngine;
 using UnityEngine.Advertisements;
+using UnityEngine.UI;
 
 public class ADSManager : MonoBehaviour, IUnityAdsShowListener, IUnityAdsLoadListener, IUnityAdsInitializationListener
 {
     private GameManager gameManager;
+    [SerializeField] private GameObject infoPanel;
+    [SerializeField] private Text info;
 
     public static string Rewarded_Android = "Rewarded_Android";
     public static string Android_ID = "4722669";
@@ -11,7 +14,7 @@ public class ADSManager : MonoBehaviour, IUnityAdsShowListener, IUnityAdsLoadLis
     private void Awake()
     {
         gameManager = gameObject.GetComponent<GameManager>();
-
+        info.text = "Ќет доступной рекламы на данный момент!";
     }
 
     public void ShowADS()
@@ -35,6 +38,7 @@ public class ADSManager : MonoBehaviour, IUnityAdsShowListener, IUnityAdsLoadLis
     public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)
     {
         Debug.Log("cant show ads");
+        infoPanel.GetComponent<Animation>().Play();
     }
 
     public void OnUnityAdsShowStart(string placementId)
@@ -69,6 +73,7 @@ public class ADSManager : MonoBehaviour, IUnityAdsShowListener, IUnityAdsLoadLis
     public void OnUnityAdsFailedToLoad(string placementId, UnityAdsLoadError error, string message)
     {
         Debug.Log("ads failed");
+        infoPanel.GetComponent<Animation>().Play();
     }
 
     public void OnInitializationComplete()
@@ -79,5 +84,6 @@ public class ADSManager : MonoBehaviour, IUnityAdsShowListener, IUnityAdsLoadLis
     public void OnInitializationFailed(UnityAdsInitializationError error, string message)
     {
         Debug.Log("ads init failed");
+        infoPanel.GetComponent<Animation>().Play();
     }
 }
