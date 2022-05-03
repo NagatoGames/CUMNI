@@ -1,28 +1,35 @@
 using UnityEngine;
 using UnityEngine.Advertisements;
 
-public class ADSManager : MonoBehaviour, IUnityAdsShowListener, IUnityAdsLoadListener
+public class ADSManager : MonoBehaviour, IUnityAdsShowListener, IUnityAdsLoadListener, IUnityAdsInitializationListener
 {
     private GameManager gameManager;
 
     public static string Rewarded_Android = "Rewarded_Android";
+    public static string Android_ID = "4722669";
 
-    void Start()
+    private void Awake()
     {
         gameManager = gameObject.GetComponent<GameManager>();
-        if (Advertisement.isSupported)
-        {
-            Advertisement.Initialize("4722669", false);
-        }
+
     }
 
     public void ShowADS()
     {
-        Advertisement.Show(Rewarded_Android);
-        gameManager.getPlayerData().Coins += 25;
-        gameManager.getPlayerData().SaveData();
-        gameManager.UpdateCoin();
+        if (Advertisement.isInitialized)
+        {
+            Debug.Log("isInitialized = true");
+            LoadInititialAd();
+        }
+        else
+        {
+            Advertisement.Initialize(Android_ID, false, this);
+        }
+    }
 
+    public void LoadInititialAd()
+    {
+        Advertisement.Load(Rewarded_Android, this);
     }
 
     public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)
@@ -33,6 +40,7 @@ public class ADSManager : MonoBehaviour, IUnityAdsShowListener, IUnityAdsLoadLis
     public void OnUnityAdsShowStart(string placementId)
     {
         Debug.Log("start showing");
+        Time.timeScale = 0;
     }
 
     public void OnUnityAdsShowClick(string placementId)
@@ -42,16 +50,34 @@ public class ADSManager : MonoBehaviour, IUnityAdsShowListener, IUnityAdsLoadLis
 
     public void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState)
     {
-        Debug.Log("ads finish");
+        Time.timeScale = 1;
+        if (showCompletionState == UnityAdsShowCompletionState.COMPLETED)
+        {
+            gameManager.getPlayerData().Coins += 25;
+            gameManager.getPlayerData().SaveData();
+            gameManager.UpdateCoin();
+        }
+        Debug.Log("ads finish: state = " + showCompletionState);
     }
 
     public void OnUnityAdsAdLoaded(string placementId)
     {
         Debug.Log("ads loaded");
+        Advertisement.Show(Rewarded_Android, this);
     }
 
     public void OnUnityAdsFailedToLoad(string placementId, UnityAdsLoadError error, string message)
     {
         Debug.Log("ads failed");
+    }
+
+    public void OnInitializationComplete()
+    {
+        LoadInititialAd();
+    }
+
+    public void OnInitializationFailed(UnityAdsInitializationError error, string message)
+    {
+        Debug.Log("ads init failed");
     }
 }
