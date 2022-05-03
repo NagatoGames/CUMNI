@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class GameLogic : MonoBehaviour
 {
     private DiceCombinationManager dcm = new DiceCombinationManager();
+    [SerializeField] private BotLevel botLevel;
     [SerializeField] private GameManager gameManager;
     [SerializeField] private List<Dice> dicesTable;
 
@@ -102,6 +103,10 @@ public class GameLogic : MonoBehaviour
             gameManager.getPlayerData().Coins += 50;
             gameManager.getPlayerData().MaxLevel++;
             gameManager.getPlayerData().SaveData();
+            foreach (BotLevel bt in gameManager.UIManager.BotLevels)
+            {
+                bt.OpenLevel();
+            }
         }
         else
         {

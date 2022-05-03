@@ -12291,6 +12291,13 @@ MonoBehaviour:
   currentBotName: {fileID: 790579810}
   gameManager: {fileID: 1309938206}
   bonusValue: {fileID: 214788407}
+  botLevels:
+  - {fileID: 1613813559}
+  - {fileID: 775649916}
+  - {fileID: 953563631}
+  - {fileID: 873764284}
+  - {fileID: 328260074}
+  - {fileID: 2035325573}
 --- !u!1001 &1029087862
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16507,6 +16514,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a826adabbfe2204189bf6560b74acd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  botLevel: {fileID: 0}
   gameManager: {fileID: 1309938206}
   dicesTable:
   - {fileID: 359857452}
@@ -17179,7 +17187,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.29124662}
-  m_AnchoredPosition: {x: -0.0004272461, y: 0.6699829}
+  m_AnchoredPosition: {x: -0.00048828125, y: 0.6699219}
   m_SizeDelta: {x: -0.23999023, y: 1.5100098}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1735905194
@@ -20438,7 +20446,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.05356382, y: 0.054128475}
   m_AnchorMax: {x: 0.74244803, y: 0.18925695}
-  m_AnchoredPosition: {x: -1.5, y: -0.08001709}
+  m_AnchoredPosition: {x: -1.5, y: -0.080078125}
   m_SizeDelta: {x: -1.13, y: -2.6500015}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2092118897

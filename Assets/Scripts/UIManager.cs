@@ -25,10 +25,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] private List<string> botNames;
     [SerializeField] private Image currentBotSprite;
     [SerializeField] private Text currentBotName;
-
     [SerializeField] private GameManager gameManager;
-
     [SerializeField] private Text bonusValue;
+
+    [SerializeField] private BotLevel[] botLevels;
+
+    public BotLevel[] BotLevels { get => botLevels; set => botLevels = value; }
 
     private void Start()
     {
